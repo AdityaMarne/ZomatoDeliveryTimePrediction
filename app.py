@@ -42,7 +42,7 @@ def predict_datapoint():
         results = round(pred[0])
         
         # Rendering the result
-        return render_template('form.html', final_result=f"This is the predicted time in min: {results}")
+        return render_template('form.html', final_result=f"This is the predicted time in min: {results} min")
 
     
 if __name__=="__main__":

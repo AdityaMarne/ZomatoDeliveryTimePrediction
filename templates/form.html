@@ -15,9 +15,9 @@
         }
 
         .container {
-            width: 80%;
-            max-width: 800px;
-            margin: 50px auto;
+            width: 90%;
+            max-width: 450px;
+            margin: 30px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -27,35 +27,59 @@
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
 
         form {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            gap: 10px;
         }
 
         label {
-            margin: 10px 0 5px;
+            display: block;
             font-weight: bold;
-        }
-
-        .description {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            position: relative;
         }
 
         input[type="number"],
         select {
-            width: 100%;
+            width: 70%;
             padding: 10px;
-            margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
 
+        .info-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .info-text {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 0.9em;
+            color: #666;
+            z-index: 1;
+        }
+
+        .info-icon:hover + .info-text {
+            display: block;
+        }
+
         button {
-            width: 100%;
             padding: 10px;
             background-color: #5cb85c;
             border: none;
@@ -74,32 +98,48 @@
     <div class="container">
         <h1>Delivery Information Form</h1>
         <form action="{{url_for('predict_datapoint')}}" method="post">
-            <label for="Delivery_person_Age">Delivery Person Age:</label>
-            <input type="number" id="Delivery_person_Age" name="Delivery_person_Age" required>
-            <p class="description">Enter the age of the delivery person (in years).</p>
+            <label for="Delivery_person_Age">Delivery Person Age:
+                <span class="info-icon">i</span>
+                <div class="info-text">Enter the age of the delivery person (in years).</div>
+            </label>
+            <input type="number" id="Delivery_person_Age" name="Delivery_person_Age" placeholder="Enter age in years" required>
 
-            <label for="Delivery_person_Ratings">Delivery Person Ratings:</label>
-            <input type="number" step="0.1" id="Delivery_person_Ratings" name="Delivery_person_Ratings" min="1.0" max="5.0" required>
-            <p class="description">Rate the delivery person between 1.0 and 5.0.</p>
+            <label for="Delivery_person_Ratings">Delivery Person Ratings:
+                <span class="info-icon">i</span>
+                <div class="info-text">Rate the delivery person between 1.0 and 5.0.</div>
+            </label>
+            <input type="number" step="0.1" id="Delivery_person_Ratings" name="Delivery_person_Ratings" min="1.0" max="5.0" placeholder="Rate between 1.0 and 5.0" required>
 
-            <label for="Restaurant_latitude">Restaurant Latitude:</label>
-            <input type="number" step="0.00001" id="Restaurant_latitude" name="Restaurant_latitude" required>
-            <p class="description">Enter the latitude of the restaurant.</p>
+            <label for="Restaurant_latitude">Restaurant Latitude:
+                <span class="info-icon">i</span>
+                <div class="info-text">Enter the latitude of the restaurant.</div>
+            </label>
+            <input type="number" step="0.00001" id="Restaurant_latitude" name="Restaurant_latitude" placeholder="Enter restaurant latitude" required>
 
-            <label for="Restaurant_longitude">Restaurant Longitude:</label>
-            <input type="number" step="0.00001" id="Restaurant_longitude" name="Restaurant_longitude" required>
-            <p class="description">Enter the longitude of the restaurant.</p>
+            <label for="Restaurant_longitude">Restaurant Longitude:
+                <span class="info-icon">i</span>
+                <div class="info-text">Enter the longitude of the restaurant.</div>
+            </label>
+            <input type="number" step="0.00001" id="Restaurant_longitude" name="Restaurant_longitude" placeholder="Enter restaurant longitude" required>
 
-            <label for="Delivery_location_latitude">Delivery Location Latitude:</label>
-            <input type="number" step="0.00001" id="Delivery_location_latitude" name="Delivery_location_latitude" required>
-            <p class="description">Enter the latitude of the delivery location.</p>
+            <label for="Delivery_location_latitude">Delivery Location Latitude:
+                <span class="info-icon">i</span>
+                <div class="info-text">Enter the latitude of the delivery location.</div>
+            </label>
+            <input type="number" step="0.00001" id="Delivery_location_latitude" name="Delivery_location_latitude" placeholder="Enter delivery location latitude" required>
 
-            <label for="Delivery_location_longitude">Delivery Location Longitude:</label>
-            <input type="number" step="0.00001" id="Delivery_location_longitude" name="Delivery_location_longitude" required>
-            <p class="description">Enter the longitude of the delivery location.</p>
+            <label for="Delivery_location_longitude">Delivery Location Longitude:
+                <span class="info-icon">i</span>
+                <div class="info-text">Enter the longitude of the delivery location.</div>
+            </label>
+            <input type="number" step="0.00001" id="Delivery_location_longitude" name="Delivery_location_longitude" placeholder="Enter delivery location longitude" required>
 
-            <label for="Weather_conditions">Weather Conditions:</label>
+            <label for="Weather_conditions">Weather Conditions:
+                <span class="info-icon">i</span>
+                <div class="info-text">Select the current weather conditions.</div>
+            </label>
             <select id="Weather_conditions" name="Weather_conditions" required>
+                <option value="" disabled selected>Select weather conditions</option>
                 <option value="Fog">Fog</option>
                 <option value="Stormy">Stormy</option>
                 <option value="Sandstorms">Sandstorms</option>
@@ -107,48 +147,63 @@
                 <option value="Cloudy">Cloudy</option>
                 <option value="Sunny">Sunny</option>
             </select>
-            <p class="description">Select the current weather conditions.</p>
 
-            <label for="multiple_deliveries">Multiple Deliveries:</label>
-            <input type="number" step="1" id="multiple_deliveries" name="multiple_deliveries" min="1" max="3" required>
-            <p class="description">Enter the number of multiple deliveries (1 to 3).</p>
+            <label for="multiple_deliveries">Multiple Deliveries:
+                <span class="info-icon">i</span>
+                <div class="info-text">Enter the number of multiple deliveries (1 to 3).</div>
+            </label>
+            <input type="number" step="1" id="multiple_deliveries" name="multiple_deliveries" min="1" max="3" placeholder="Enter number of deliveries (1 to 3)" required>
 
-            <label for="Festival">Festival:</label>
+            <label for="Festival">Festival:
+                <span class="info-icon">i</span>
+                <div class="info-text">Specify if a festival is occurring (Yes/No).</div>
+            </label>
             <select id="Festival" name="Festival" required>
+                <option value="" disabled selected>Select if festival is occurring</option>
                 <option value="No">No</option>
                 <option value="Yes">Yes</option>
             </select>
-            <p class="description">Specify if a festival is occurring (Yes/No).</p>
 
-            <label for="City">City:</label>
+            <label for="City">City:
+                <span class="info-icon">i</span>
+                <div class="info-text">Select the type of city.</div>
+            </label>
             <select id="City" name="City" required>
+                <option value="" disabled selected>Select type of city</option>
                 <option value="Metropolitian">Metropolitian</option>
                 <option value="Urban">Urban</option>
                 <option value="Semi-Urban">Semi-Urban</option>
             </select>
-            <p class="description">Select the type of city.</p>
 
-            <label for="Road_traffic_density">Road Traffic Density:</label>
+            <label for="Road_traffic_density">Road Traffic Density:
+                <span class="info-icon">i</span>
+                <div class="info-text">Select the road traffic density.</div>
+            </label>
             <select id="Road_traffic_density" name="Road_traffic_density" required>
+                <option value="" disabled selected>Select road traffic density</option>
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="High">High</option>
                 <option value="Jam">Jam</option>
             </select>
-            <p class="description">Select the road traffic density.</p>
 
-            <label for="Vehicle_condition">Vehicle Condition:</label>
-            <input type="number" step="1" id="Vehicle_condition" name="Vehicle_condition" min="0" max="2" required>
-            <p class="description">Enter the condition of the vehicle (0: Poor, 1: Average, 2: Good).</p>
+            <label for="Vehicle_condition">Vehicle Condition:
+                <span class="info-icon">i</span>
+                <div class="info-text">Enter the condition of the vehicle (0: Poor, 1: Average, 2: Good).</div>
+            </label>
+            <input type="number" step="1" id="Vehicle_condition" name="Vehicle_condition" min="0" max="2" placeholder="Enter vehicle condition (0: Poor, 1: Average, 2: Good)" required>
 
-            <label for="Type_of_vehicle">Type of Vehicle:</label>
+            <label for="Type_of_vehicle">Type of Vehicle:
+                <span class="info-icon">i</span>
+                <div class="info-text">Select the type of vehicle used.</div>
+            </label>
             <select id="Type_of_vehicle" name="Type_of_vehicle" required>
+                <option value="" disabled selected>Select type of vehicle</option>
                 <option value="motorcycle">Motorcycle</option>
                 <option value="scooter">Scooter</option>
                 <option value="electric_scooter">Electric Scooter</option>
                 <option value="bicycle">Bicycle</option>
             </select>
-            <p class="description">Select the type of vehicle used.</p>
 
             <button type="submit">Submit</button>
         </form>
